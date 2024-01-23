@@ -38,4 +38,6 @@ function Scan(file)
 
         return char
     end
+
+    -- Use coroutines here? Constantly get next character, send to a particular coroutine, swapping out the coroutine as necessary to parse properly?
 end
