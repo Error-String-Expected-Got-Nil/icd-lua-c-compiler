@@ -102,6 +102,7 @@ function Scan(file)
         end
     end
 
+    -- TODO: Make readPreprocessorDirective() function?
     local function readSymbols()
         local buffer = ""
 
