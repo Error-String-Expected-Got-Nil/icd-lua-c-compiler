@@ -100,8 +100,7 @@ function Scan(file)
         elseif char:match(defs.whitespace) then
             reader = readWhitespace
         else
-            -- Need to make this better
-            error("Unrecognized character")
+            -- Unrecognized character, should cause error
         end
 
         reader = coroutine.create(reader)
