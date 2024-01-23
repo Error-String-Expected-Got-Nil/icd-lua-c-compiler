@@ -42,23 +42,6 @@ function Scan(file)
 
     -- The following uses coroutines. Coroutines are, in short, functions you can pause and resume, passing data in and out at the same time.
     -- TODO: Load tokens into table
-    local function readSymbols()
-        local buffer = ""
-
-        while true do
-            local char = coroutine.yield()
-
-            if not char:match(defs.symbols) then
-                -- Temporary
-                table.insert(scanState.tokens, buffer)
-
-                unread(char)
-                return "finished"
-            else
-                buffer = buffer .. char
-            end
-        end
-    end
 
     local function readCharacters()
         local buffer = ""
@@ -85,6 +68,54 @@ function Scan(file)
             if not char:match(defs.whitespace) then
                 unread(char)
                 return "finished"
+            end
+        end
+    end
+
+    local function readLineComment()
+        local buffer = ""
+
+        while true do
+            local char = coroutine.yield()
+
+            -- Storing comments to buffer so they can be logged later.
+            buffer = buffer .. char
+
+            if char == defs.newline then
+                return "finished"
+            end
+        end
+    end
+
+    local function readBlockComment()
+        local buffer = ""
+
+        while true do
+            local char = coroutine.yield()
+
+            -- Storing comments to buffer so they can be logged later. Also to find end.
+            buffer = buffer .. char
+
+            if buffer:sub(-#defs.operators.blockCommentEnd) == defs.operators.blockCommentEnd then
+                return "finished"
+            end
+        end
+    end
+
+    local function readSymbols()
+        local buffer = ""
+
+        while true do
+            local char = coroutine.yield()
+
+            if not char:match(defs.symbols) then
+                -- Temporary
+                table.insert(scanState.tokens, buffer)
+
+                unread(char)
+                return "finished"
+            else
+                buffer = buffer .. char
             end
         end
     end

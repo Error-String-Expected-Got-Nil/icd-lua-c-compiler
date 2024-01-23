@@ -11,5 +11,18 @@ Definitions = {
     whitespace = "%s";
 
     -- Newline character. You could change this if you wanted to, for whatever reason. More power to you.
-    newline = "\n"
+    newline = "\n";
+
+    -- Array of all operator (for lack of a better term) types followed by keys with those names assigned to their symbols.
+    -- If adding an operator, put longer ones first in the array part to make sure they take priority!
+    -- This is so, for instance, a line comment isn't confused for two divisions.
+    operators = {
+        "lineCommentStart";
+        "blockCommentStart";
+        "blockCommentEnd";
+
+        lineCommentStart = "//";
+        blockCommentStart = "/*";
+        blockCommentEnd = "*/";
+    };
 }
