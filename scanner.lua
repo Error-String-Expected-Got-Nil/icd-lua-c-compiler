@@ -122,7 +122,7 @@ function Scan(file)
     end
 
     -- Determines which reader is next, returning a new coroutine for it.
-    local function getNextReader()
+    local function getNextReader(char)
         local reader
 
         if char:match(defs.symbols) then
@@ -141,7 +141,7 @@ function Scan(file)
     end
 
     local char = nextChar()
-    scanState.reader = getNextReader()
+    scanState.reader = getNextReader(char)
     unread(char)
 
     while true do
@@ -158,7 +158,7 @@ function Scan(file)
         end
 
         if message == "finished" then
-            scanState.reader = getNextReader()
+            scanState.reader = getNextReader(char)
         end
     end
 end
