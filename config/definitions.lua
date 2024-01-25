@@ -13,7 +13,7 @@ Definitions = {
     -- Newline character. You could change this if you wanted to, for whatever reason. More power to you.
     newline = "\n";
 
-    --Comment signifiers. Not in the "operators" list because they are treated specially when scanning.
+    -- Comment signifiers. Not in the "operators" list because they are treated specially when scanning.
     lineCommentStart = "//";
     blockCommentStart = "/*";
     blockCommentEnd = "*/";
@@ -62,6 +62,9 @@ Definitions = {
 
         "listSep";
         "statementSep";
+
+        "doubleQuote";
+        "singleQuote";
 
         "openParenthesis";
         "closeParenthesis";
@@ -113,6 +116,9 @@ Definitions = {
         listSep = ",";
         statementSep = ";";
 
+        doubleQuote = "\"";
+        singleQuote = "'";
+
         openParenthesis = "(";
         closeParenthesis = ")";
         openBracket = "[";
@@ -122,4 +128,7 @@ Definitions = {
         openArrow = "<";        -- Also less than sign
         closeArrow = ">";       -- Also greater than sign
     };
+
+    -- TODO: Special characters for string parsing
+    -- TODO: Keywords
 }
