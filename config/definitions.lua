@@ -21,6 +21,7 @@ Definitions = {
     -- Array of all operator (for lack of a better term) types followed by keys with those names assigned to their symbols.
     -- If adding an operator, put longer ones first in the array part to make sure they take priority!
     -- This is so, for instance, an increment isn't confused for two plus signs.
+    -- Will probably comment out the ones I don't want to implement and have a catch-all "symbol unimplemented" if I ever fail to match in scanning.
     operators = {
         "logicEQ";
         "logicNE";
