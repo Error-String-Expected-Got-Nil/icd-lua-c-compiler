@@ -28,9 +28,41 @@ Definitions = {
         "logicLE";
         "logicAND";
         "logicOR";
-        "increment";
-        "decrement";
-        "assignment";
+        "logicNOT";
+
+        "assign";
+        "assignAdd";
+        "assignSub";
+        "assingMul";
+        "assignDiv";
+        "assignMod";
+        "assignAND";
+        "assignOR";
+        "assignXOR";
+        "assignLSH";
+        "assignRSH";
+
+        "bitwiseAND";
+        "bitwiseOR";
+        "bitwiseXOR";
+        "bitwiseNOT";
+        "bitwiseLSH";
+        "bitwiseRSH";
+
+        "mathIncrement";
+        "mathDecrement";
+        "mathAdd";
+        "mathSubtract";
+        "mathMultiply";
+        "mathDivide";
+        "mathModulo";
+
+        "ternaryAsk";
+        "teraryAnswer";
+
+        "listSep";
+        "statementSep";
+
         "openParenthesis";
         "closeParenthesis";
         "openBracket";
@@ -39,10 +71,6 @@ Definitions = {
         "closeCurl";
         "openArrow";
         "closeArrow";
-        "plus";
-        "minus";
-        "asterisk";
-        "slash";
 
         logicEQ = "==";
         logicNE = "!=";
@@ -50,9 +78,41 @@ Definitions = {
         logicLE = "<=";
         logicAND = "&&";
         logicOR = "||";
-        increment = "++";
-        decrement = "--";
-        assignment = "=";
+        logicNOT = "!";
+
+        assign = "=";
+        assignAdd = "+=";
+        assignSub = "-=";
+        assignMul = "*=";
+        assignDiv = "/=";
+        assignMod = "%=";
+        assignAND = "&=";
+        assignOR = "|=";
+        assignXOR = "^=";
+        assignLSH = "<<=";
+        assignRSH = ">>=";
+
+        bitwiseAND = "&";
+        bitwiseOR = "|";
+        bitwiseXOR = "^";
+        bitwiseNOT = "~";
+        bitwiseLSH = "<<";
+        bitwiseRSH = ">>";
+
+        mathIncrement = "++";
+        mathDecrement = "--";
+        mathAdd = "+";
+        mathSubtract = "-";
+        mathMultiply = "*";
+        mathDivide = "/";
+        mathModulo = "%";
+
+        ternaryAsk = "?";
+        ternaryAnswer = ":";
+
+        listSep = ",";
+        statementSep = ";";
+
         openParenthesis = "(";
         closeParenthesis = ")";
         openBracket = "[";
@@ -61,9 +121,5 @@ Definitions = {
         closeCurl = "}";
         openArrow = "<";
         closeArrow = ">";
-        plus = "+";
-        minus = "-";
-        asterisk = "*";
-        slash = "/";
     };
 }
