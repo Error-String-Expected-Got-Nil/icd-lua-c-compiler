@@ -92,7 +92,7 @@ Definitions = {
         assignLSH = "<<=";
         assignRSH = ">>=";
 
-        bitwiseAND = "&";
+        bitwiseAND = "&";       -- Also reference sign
         bitwiseOR = "|";
         bitwiseXOR = "^";
         bitwiseNOT = "~";
@@ -103,7 +103,7 @@ Definitions = {
         mathDecrement = "--";
         mathAdd = "+";
         mathSubtract = "-";
-        mathMultiply = "*";
+        mathMultiply = "*";     -- Also pointer sign
         mathDivide = "/";
         mathModulo = "%";
 
@@ -119,7 +119,7 @@ Definitions = {
         closeBracket = "]";
         openCurl = "{";
         closeCurl = "}";
-        openArrow = "<";
-        closeArrow = ">";
+        openArrow = "<";        -- Also less than sign
+        closeArrow = ">";       -- Also greater than sign
     };
 }
