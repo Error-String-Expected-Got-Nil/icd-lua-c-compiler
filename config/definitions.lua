@@ -18,6 +18,11 @@ Definitions = {
     blockCommentStart = "/*";
     blockCommentEnd = "*/";
 
+    stringBound = "\"";
+    stringEscape = "\\";
+    -- TODO: List of string escape characters somewhere.
+    charBound = "'";
+
     -- Array of all operator (for lack of a better term) types followed by keys with those names assigned to their symbols.
     -- If adding an operator, put longer ones first in the array part to make sure they take priority!
     -- This is so, for instance, an increment isn't confused for two plus signs.
@@ -64,9 +69,6 @@ Definitions = {
 
         "listSep";
         "statementSep";
-
-        "doubleQuote";
-        "singleQuote";
 
         "openParenthesis";
         "closeParenthesis";
@@ -117,9 +119,6 @@ Definitions = {
 
         listSep = ",";
         statementSep = ";";
-
-        doubleQuote = "\"";
-        singleQuote = "'";
 
         openParenthesis = "(";
         closeParenthesis = ")";

@@ -45,9 +45,6 @@ Tokens = {
     "listSep";
     "statementSep";
 
-    "doubleQuote";
-    "singleQuote";
-
     "openParenthesis";
     "closeParenthesis";
     "openBracket";
@@ -153,67 +150,64 @@ Tokens = {
     listSep = 34;
     statementSep = 35;
 
-    doubleQuote = 36;
-    singleQuote = 37;
-
-    openParenthesis = 38;
-    closeParenthesis = 39;
-    openBracket = 40;
-    closeBracket = 41;
-    openCurl = 42;
-    closeCurl = 43;
-    openArrow = 44;
-    closeArrow = 45;
+    openParenthesis = 36;
+    closeParenthesis = 37;
+    openBracket = 38;
+    closeBracket = 39;
+    openCurl = 40;
+    closeCurl = 41;
+    openArrow = 42;
+    closeArrow = 43;
 
     -- Identifiers and Literals
-    identifier = 46;
-    stringLiteral = 47;
-    numberLiteral = 48;
+    identifier = 44;
+    stringLiteral = 45;
+    numberLiteral = 46;
 
     -- Type Keywords
-    char = 49;
-    short = 50;
-    int = 51;
-    long = 52;
+    char = 47;
+    short = 48;
+    int = 49;
+    long = 50;
 
-    float = 53;
-    double = 54;
+    float = 51;
+    double = 52;
 
-    struct = 55;
-    enum = 56;
-    union = 57;
+    struct = 53;
+    enum = 54;
+    union = 55;
 
-    signed = 58;
-    unsigned = 59;
-    const = 60;
-    constexpr = 70;
-    volatile = 71;
-    auto = 72;
+    signed = 56;
+    unsigned = 57;
+    const = 58;
+    constexpr = 59;
+    volatile = 60;
+    auto = 61;
 
-    void = 73;
+    void = 62;
 
-    bool = 74;
-    literalTrue = 75;
-    literalFalse = 76;
+    bool = 63;
+    literalTrue = 64;
+    literalFalse = 65;
 
     -- Control Keywords
-    controlIf = 77;
-    controlElse = 78;
+    controlIf = 66;
+    controlElse = 67;
 
-    controlWhile = 79;
-    controlFor = 80;
-    controlDo = 81;
+    controlWhile = 68;
+    controlFor = 69;
+    controlDo = 70;
 
-    controlSwitch = 82;
-    controlCase = 83;
+    controlSwitch = 71;
+    controlCase = 72;
 
-    controlBreak = 84;
-    controlContinue = 85;
-    controlGoto = 86;
-    controlReturn = 87;
+    controlBreak = 73;
+    controlContinue = 74;
+    controlGoto = 75;
+    controlReturn = 76;
 
     -- Extra
-    sizeof = 88;
-    typedef = 89;
-    typeof = 90;
+    sizeof = 77;
+    typedef = 78;
+    typeof = 79;
 }

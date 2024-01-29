@@ -53,6 +53,7 @@ function Scan(file)
         while true do
             local char = coroutine.yield()
 
+            -- Should permit period if previous character was a number, to allow for floats.
             if not char:match(defs.characters) then
                 -- Temporary
                 table.insert(tokens, buffer)
@@ -115,6 +116,8 @@ function Scan(file)
             if not char:match(defs.symbols) then
                 while #buffer > 0 do
                     -- TODO: Check for comment start symbols
+                    -- TODO: Check for double quote marks to start string parsing
+                    -- TODO: Check for single quote marks to start char parsing
 
                     for _, operator in ipairs(defs.operators) do
                         local result, replace = buffer:gsub("^" .. defs.operators[operator], "")
