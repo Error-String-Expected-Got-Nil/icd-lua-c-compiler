@@ -1,6 +1,6 @@
 Definitions = {
     -- Patterns for certain types of characters, for Lua's built-in pattern matching functions.
-    -- Assume all strings here are actually Lua patterns!! Escape special characters with % as necessary!
+    -- Assume all strings (that don't represent table keys) here are actually Lua patterns!! Escape special characters with % as necessary!
 
     -- symbols: Written out manually, all symbol characters.
     symbols = "[`%-=%[%]\\;',./!@#$%%^&*()+{}|:\"<>?]";
