@@ -109,24 +109,24 @@ Definitions = {
         bitwiseLSH = "<<";
         bitwiseRSH = ">>";
 
-        mathIncrement = "++";
-        mathDecrement = "--";
-        mathAdd = "+";
-        mathSubtract = "-";
-        mathMultiply = "*";     -- Also pointer sign
+        mathIncrement = "%+%+";
+        mathDecrement = "%-%-";
+        mathAdd = "%+";
+        mathSubtract = "%-";
+        mathMultiply = "%*";     -- Also pointer sign
         mathDivide = "/";
         mathModulo = "%%";
 
-        ternaryAsk = "?";
+        ternaryAsk = "%?";
         ternaryAnswer = ":";
 
         listSep = ",";
         statementSep = ";";
 
-        openParenthesis = "(";
-        closeParenthesis = ")";
-        openBracket = "[";
-        closeBracket = "]";
+        openParenthesis = "%(";
+        closeParenthesis = "%)";
+        openBracket = "%[";
+        closeBracket = "%]";
         openCurl = "{";
         closeCurl = "}";
         openArrow = "<";        -- Also less than sign
