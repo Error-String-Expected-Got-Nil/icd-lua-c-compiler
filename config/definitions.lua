@@ -174,6 +174,10 @@ Definitions = {
         "controlGoto";
         "controlReturn";
 
+        "sizeof";
+        "typedef";
+        "typeof";
+
         char = "char";
         short = "short";
         int = "int";
@@ -214,6 +218,10 @@ Definitions = {
         controlContinue = "continue";
         controlGoto = "goto";
         controlReturn = "return";
+
+        sizeof = "sizeof";
+        typedef = "typedef";
+        typeof = "typeof";
     }
 
     -- This thing with the 'operators' and the 'keywords' tables is probably suboptimal but too bad! It works.

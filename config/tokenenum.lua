@@ -108,6 +108,7 @@ Tokens = {
     -- Extra (I.e. I forgot these and didn't want to manually fix the table)
     "sizeof";
     "typedef";
+    "typeof";
 
     -- Name to Ordinal Indicies
     logicEQ = 1;
@@ -214,4 +215,5 @@ Tokens = {
     -- Extra
     sizeof = 88;
     typedef = 89;
+    typeof = 90;
 }

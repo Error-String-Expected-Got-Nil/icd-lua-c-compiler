@@ -46,7 +46,6 @@ function Scan(file)
     end
 
     -- The following uses coroutines. Coroutines are, in short, functions you can pause and resume, passing data in and out at the same time.
-    -- TODO: Load tokens into table
 
     local function readCharacters()
         local buffer = ""
