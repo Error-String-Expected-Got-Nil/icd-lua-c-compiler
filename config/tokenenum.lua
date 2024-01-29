@@ -105,6 +105,10 @@ Tokens = {
     "controlGoto";
     "controlReturn";
 
+    -- Extra (I.e. I forgot these and didn't want to manually fix the table)
+    "sizeof";
+    "typedef";
+
     -- Name to Ordinal Indicies
     logicEQ = 1;
     logicNE = 2;
@@ -206,4 +210,8 @@ Tokens = {
     controlContinue = 85;
     controlGoto = 86;
     controlReturn = 87;
+
+    -- Extra
+    sizeof = 88;
+    typedef = 89;
 }
