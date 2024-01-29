@@ -47,6 +47,8 @@ function Scan(file)
 
     -- The following uses coroutines. Coroutines are, in short, functions you can pause and resume, passing data in and out at the same time.
 
+    -- TODO: String literal reader, character literal reader
+
     local function readCharacters()
         local buffer = ""
 
