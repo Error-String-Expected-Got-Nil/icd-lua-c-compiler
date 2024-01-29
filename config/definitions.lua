@@ -23,6 +23,9 @@ Definitions = {
     -- TODO: List of string escape characters somewhere.
     charBound = "'";
 
+    -- The first of these you might actually want to change, if you want to use commas instead of periods for the decimal point in a float.
+    decimalPoint = ".";
+
     -- Array of all operator (for lack of a better term) types followed by keys with those names assigned to their symbols.
     -- If adding an operator, put longer ones first in the array part to make sure they take priority!
     -- This is so, for instance, an increment isn't confused for two plus signs.
