@@ -103,7 +103,7 @@ function Scan(file)
             -- Storing comments to buffer so they can be logged later. Also to find end.
             buffer = buffer .. char
 
-            if buffer:sub(-#defs.operators.blockCommentEnd) == defs.operators.blockCommentEnd then
+            if buffer:match(defs.blockCommentEnd .. "$") then
                 return true
             end
         end

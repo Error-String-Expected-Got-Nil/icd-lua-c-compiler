@@ -1,5 +1,6 @@
 Definitions = {
     -- Patterns for certain types of characters, for Lua's built-in pattern matching functions.
+    -- Assume all strings here are actually Lua patterns!! Escape special characters with % as necessary!
 
     -- symbols: Written out manually, all symbol characters.
     symbols = "[`%-=%[%]\\;',./!@#$%%^&*()+{}|:\"<>?]";
@@ -15,8 +16,8 @@ Definitions = {
 
     -- Comment signifiers. Not in the "operators" list because they are treated specially when scanning.
     lineCommentStart = "//";
-    blockCommentStart = "/*";
-    blockCommentEnd = "*/";
+    blockCommentStart = "/%*";
+    blockCommentEnd = "%*/";
 
     stringBound = "\"";
     stringEscape = "\\";
@@ -24,7 +25,7 @@ Definitions = {
     charBound = "'";
 
     -- The first of these you might actually want to change, if you want to use commas instead of periods for the decimal point in a float.
-    decimalPoint = ".";
+    decimalPoint = "%.";
 
     -- Array of all operator (for lack of a better term) types followed by keys with those names assigned to their symbols.
     -- If adding an operator, put longer ones first in the array part to make sure they take priority!
