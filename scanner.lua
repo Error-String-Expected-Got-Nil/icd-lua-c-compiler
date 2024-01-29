@@ -1,4 +1,5 @@
 require("config/definitions")
+require("config/tokenenum")
 
 local defs = Definitions
 
@@ -7,6 +8,7 @@ function Scan(file)
     local line = 1
     local reader
     local tokens = {}
+    -- Each token should be array table in form {enum token ID, [data], ...}
 
     local overreadBuffer = {}
 
@@ -105,7 +107,6 @@ function Scan(file)
         end
     end
 
-    -- TODO: Make readPreprocessorDirective() function?
     local function readSymbols()
         local buffer = ""
 
@@ -113,8 +114,20 @@ function Scan(file)
             local char = coroutine.yield()
 
             if not char:match(defs.symbols) then
-                -- Temporary
-                table.insert(tokens, buffer)
+                while #buffer > 0 do
+                    -- TODO: Check for comment start symbols
+
+                    for _, operator in ipairs(defs.operators) do
+                        local result, replace = buffer:gsub("^" .. defs.operators[operator], "")
+                        if replace > 0 then
+                            buffer = result
+                            table.insert(tokens, {Tokens[operator]})
+                            break
+                        end
+
+                        -- TODO: Handle unknown symbols/operators. I.e., invoke error.
+                    end
+                end
 
                 unread(char)
                 return true

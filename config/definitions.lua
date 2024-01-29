@@ -22,6 +22,7 @@ Definitions = {
     -- If adding an operator, put longer ones first in the array part to make sure they take priority!
     -- This is so, for instance, an increment isn't confused for two plus signs.
     -- Will probably comment out the ones I don't want to implement and have a catch-all "symbol unimplemented" if I ever fail to match in scanning.
+    -- TODO: Optimize by ordering array part by symbol frequency in code.
     operators = {
         "logicEQ";
         "logicNE";
@@ -130,6 +131,7 @@ Definitions = {
         closeArrow = ">";       -- Also greater than sign
     };
 
+    -- TODO: Optimize by ordering array part by keyword frequency in code.
     keywords = {
         "char";
         "short";
