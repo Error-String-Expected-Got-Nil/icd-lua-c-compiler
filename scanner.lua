@@ -3,18 +3,21 @@ require("config/definitions")
 local defs = Definitions
 
 function Scan(file)
-    local scanState = {position = 0, line = 1, reader = nil, tokens = {}}
+    local position = 0
+    local line = 1
+    local reader
+    local tokens = {}
 
     local overreadBuffer = {}
 
     -- If characters need to be "put back", this does it and updates state accordingly.
     local function unread(str)
-        scanState.position = scanState.position - #str
+        position = position - #str
 
         for i = 1, #str do
             local char = str:sub(i, i)
 
-            if char == defs.newline then scanState.line = scanState.line - 1 end
+            if char == defs.newline then line = line - 1 end
 
             table.insert(overreadBuffer, char)
         end
@@ -26,7 +29,7 @@ function Scan(file)
             return nil
         end
 
-        scanState.position = scanState.position + 1
+        position = position + 1
 
         local char
         if #overreadBuffer ~= 0 then
@@ -35,7 +38,7 @@ function Scan(file)
             char = file:read(1)
         end
 
-        if char == defs.newline then scanState.line = scanState.line + 1 end
+        if char == defs.newline then line = line + 1 end
 
         return char
     end
@@ -51,10 +54,10 @@ function Scan(file)
 
             if not char:match(defs.characters) then
                 -- Temporary
-                table.insert(scanState.tokens, buffer)
+                table.insert(tokens, buffer)
 
                 unread(char)
-                return "finished"
+                return true
             else
                 buffer = buffer .. char
             end
@@ -67,7 +70,7 @@ function Scan(file)
 
             if not char:match(defs.whitespace) then
                 unread(char)
-                return "finished"
+                return true
             end
         end
     end
@@ -82,7 +85,7 @@ function Scan(file)
             buffer = buffer .. char
 
             if char == defs.newline then
-                return "finished"
+                return true
             end
         end
     end
@@ -97,7 +100,7 @@ function Scan(file)
             buffer = buffer .. char
 
             if buffer:sub(-#defs.operators.blockCommentEnd) == defs.operators.blockCommentEnd then
-                return "finished"
+                return true
             end
         end
     end
@@ -111,10 +114,10 @@ function Scan(file)
 
             if not char:match(defs.symbols) then
                 -- Temporary
-                table.insert(scanState.tokens, buffer)
+                table.insert(tokens, buffer)
 
                 unread(char)
-                return "finished"
+                return true
             else
                 buffer = buffer .. char
             end
@@ -123,42 +126,42 @@ function Scan(file)
 
     -- Determines which reader is next, returning a new coroutine for it.
     local function getNextReader(char)
-        local reader
+        local nextReader
 
         if char:match(defs.symbols) then
-            reader = readSymbols
+            nextReader = readSymbols
         elseif char:match(defs.characters) then
-            reader = readCharacters
+            nextReader = readCharacters
         elseif char:match(defs.whitespace) then
-            reader = readWhitespace
+            nextReader = readWhitespace
         else
             -- Unrecognized character, should cause error
         end
 
-        reader = coroutine.create(reader)
-        coroutine.resume(reader)
-        return reader
+        nextReader = coroutine.create(nextReader)
+        coroutine.resume(nextReader)
+        return nextReader
     end
 
     local char = nextChar()
-    scanState.reader = getNextReader(char)
+    reader = getNextReader(char)
     unread(char)
 
     while true do
         char = nextChar()
 
         if not char then
-            return scanState.tokens
+            return tokens
         end
 
-        local success, message = coroutine.resume(scanState.reader, char)
+        local success, message = coroutine.resume(reader, char)
 
         if not success then
             -- Coroutine had an error, handle here
         end
 
-        if message == "finished" then
-            scanState.reader = getNextReader(char)
+        if message then
+            reader = getNextReader(char)
         end
     end
 end

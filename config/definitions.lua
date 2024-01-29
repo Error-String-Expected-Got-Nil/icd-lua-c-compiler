@@ -130,6 +130,89 @@ Definitions = {
         closeArrow = ">";       -- Also greater than sign
     };
 
+    keywords = {
+        "char";
+        "short";
+        "int";
+        "long";
+
+        "float";
+        "double";
+
+        "struct";
+        "enum";
+        "union";
+
+        "signed";
+        "unsigned";
+        "const";
+        "constexpr";
+        "volatile";
+        "auto";
+
+        "void";
+
+        "bool";
+
+        "literalTrue";
+        "literalFalse";
+
+        "controlIf";
+        "controlElse";
+
+        "controlWhile";
+        "controlFor";
+        "controlDo";
+
+        "controlSwitch";
+        "controlCase";
+
+        "controlBreak";
+        "controlContinue";
+        "controlGoto";
+        "controlReturn";
+
+        char = "char";
+        short = "short";
+        int = "int";
+        long = "long";
+
+        float = "float";
+        double = "double";
+
+        struct = "struct";
+        enum = "enum";
+        union = "union";
+
+        signed = "signed";
+        unsigned = "unsigned";
+        const = "const";
+        constexpr = "constexpr";
+        volatile = "volatile";
+        auto = "auto";
+
+        void = "void";
+
+        bool = "bool";
+
+        literalTrue = "true";
+        literalFalse = "false";
+
+        controlIf = "if";
+        controlElse = "else";
+
+        controlWhile = "while";
+        controlFor = "for";
+        controlDo = "do";
+
+        controlSwitch = "switch";
+        controlCase = "case";
+
+        controlBreak = "break";
+        controlContinue = "continue";
+        controlGoto = "goto";
+        controlReturn = "return";
+    }
+
     -- TODO: Special characters for string parsing
-    -- TODO: Keywords
 }

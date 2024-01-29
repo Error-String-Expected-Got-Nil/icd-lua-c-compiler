@@ -85,8 +85,9 @@ Tokens = {
     "void";
 
     "bool";
-    "true";
-    "false";
+
+    "literalTrue";
+    "literalFalse";
 
     -- Control Keywords
     "controlIf";
@@ -187,8 +188,8 @@ Tokens = {
     void = 73;
 
     bool = 74;
-    boolTrue = 75;
-    boolFalse = 76;
+    literalTrue = 75;
+    literalFalse = 76;
 
     -- Control Keywords
     controlIf = 77;
