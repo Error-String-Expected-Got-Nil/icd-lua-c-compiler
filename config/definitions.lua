@@ -115,7 +115,7 @@ Definitions = {
         mathSubtract = "-";
         mathMultiply = "*";     -- Also pointer sign
         mathDivide = "/";
-        mathModulo = "%";
+        mathModulo = "%%";
 
         ternaryAsk = "?";
         ternaryAnswer = ":";
