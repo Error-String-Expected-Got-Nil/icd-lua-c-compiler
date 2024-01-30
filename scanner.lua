@@ -36,7 +36,7 @@ function Scan(file)
         position = position + 1
 
         local char
-        if #overreadBuffer ~= 0 then
+        if #overreadBuffer > 0 then
             char = table.remove(overreadBuffer, 1)
         else
             char = file:read(1)
@@ -119,14 +119,34 @@ function Scan(file)
 
             if not char:match(defs.symbols) then
                 while #buffer > 0 do
-                    -- TODO: Check for comment start symbols
+                    local replace = 0
+
                     -- TODO: Check for double quote marks to start string parsing
                     -- TODO: Check for single quote marks to start char parsing
 
+                    -- Some repeated code... bad, but not terrible, and I don't think making a function for this is worth it.
+                    buffer, replace = buffer:gsub("^" .. defs.lineCommentStart, "")
+                    if replace > 0 then
+                        unread(buffer)
+
+                        local nextReader = coroutine.create(readLineComment)
+                        coroutine.resume(nextReader)
+                        reader = nextReader
+                    end
+
+                    buffer, replace = buffer:gsub("^" .. defs.blockCommentStart, "")
+                    if replace > 0 then
+                        unread(buffer)
+
+                        local nextReader = coroutine.create(readBlockComment)
+                        coroutine.resume(nextReader)
+                        reader = nextReader
+                    end
+
                     for _, operator in ipairs(defs.operators) do
-                        local result, replace = buffer:gsub("^" .. defs.operators[operator], "")
+                        buffer, replace = buffer:gsub("^" .. defs.operators[operator], "")
+
                         if replace > 0 then
-                            buffer = result
                             table.insert(tokens, {Tokens[operator]})
                             break
                         end
