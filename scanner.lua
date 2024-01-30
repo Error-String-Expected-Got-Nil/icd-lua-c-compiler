@@ -125,6 +125,9 @@ function Scan(file)
                     -- TODO: Check for single quote marks to start char parsing
 
                     -- Some repeated code... bad, but not terrible, and I don't think making a function for this is worth it.
+                    -- str:gsub() is global substitution, replacing all instances of a pattern in the given string.
+                    -- Here, I am matching to the start of the string and replacng with the empty string. gsub returns the string after
+                    -- replacement, and the number of replacements made. So I'm using it to check for and clip the prefix at the same time.
                     buffer, replace = buffer:gsub("^" .. defs.lineCommentStart, "")
                     if replace > 0 then
                         unread(buffer)
