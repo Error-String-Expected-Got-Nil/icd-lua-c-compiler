@@ -8,7 +8,10 @@ function Scan(file)
     local line = 1
     local reader
     local tokens = {}
-    -- Each token should be array table in form {enum token ID, [data], ...}
+    local tokenData = {}
+    -- Each token gets added to the 'tokens' array as its ID.
+    -- If a token requires additional data, it is put in the 'tokenData' table at the same array index it is at in the
+    -- 'tokens' table. 
 
     local overreadBuffer = {}
 
@@ -168,7 +171,7 @@ function Scan(file)
         char = nextChar()
 
         if not char then
-            return tokens
+            return tokens, tokenData
         end
 
         local success, message = coroutine.resume(reader, char)
