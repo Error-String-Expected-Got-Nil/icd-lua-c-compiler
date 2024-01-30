@@ -1,0 +1,2 @@
+-- TODO: Write this. Lmao
+-- Will handle both debug logging (to file and console) and throwing errors.
