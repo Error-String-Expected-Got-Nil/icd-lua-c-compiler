@@ -55,7 +55,7 @@ Tokens = {
     "closeArrow";
 
     -- Identifiers and Literals
-    "identifier";
+    "word";
     "stringLiteral";
     "numberLiteral";
 
