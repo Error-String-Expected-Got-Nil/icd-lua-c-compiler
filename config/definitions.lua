@@ -133,6 +133,11 @@ Definitions = {
         openArrow = "<";        -- Also less than sign
         closeArrow = ">";       -- Also greater than sign
     };
+    -- Note: The reason I don't just have the keyed part and just run through it with pairs() instead of doing
+    -- what I do here (having an array part and using ipairs()) is because, technically speaking, pairs()
+    -- does NOT have a strictly defined order. I'm *pretty sure* it should do it in the order the keys are entered
+    -- here, but I'm not *completely* sure, and that isn't the defined behavior. So we use the array version to
+    -- make sure it always works the same, even if it may be slightly less efficient. 
 
     -- TODO: Optimize by ordering array part by keyword frequency in code.
     keywords = {
