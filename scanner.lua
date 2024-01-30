@@ -128,7 +128,7 @@ function Scan(file)
                         local result, replace = buffer:gsub("^" .. defs.operators[operator], "")
                         if replace > 0 then
                             buffer = result
-                            table.insert(tokens, {Tokens[operator]})
+                            table.insert(tokens, Tokens[operator])
                             break
                         end
 
