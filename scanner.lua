@@ -8,10 +8,9 @@ function Scan(file)
     local line = 1
     local reader
     local tokens = {}
-    local tokenData = {}
-    -- Each token gets added to the 'tokens' array as its ID.
-    -- If a token requires additional data, it is put in the 'tokenData' table at the same array index it is at in the
-    -- 'tokens' table. 
+    -- Each token is an array in this 'tokens' array.
+    -- The first entry in each array is always the token's enum ID.
+    -- Additional entries are any extra data the token needs (like a literal's value).
 
     local overreadBuffer = {}
 
@@ -128,7 +127,7 @@ function Scan(file)
                         local result, replace = buffer:gsub("^" .. defs.operators[operator], "")
                         if replace > 0 then
                             buffer = result
-                            table.insert(tokens, Tokens[operator])
+                            table.insert(tokens, {Tokens[operator]})
                             break
                         end
 
@@ -171,7 +170,7 @@ function Scan(file)
         char = nextChar()
 
         if not char then
-            return tokens, tokenData
+            return tokens
         end
 
         local success, message = coroutine.resume(reader, char)
