@@ -4,7 +4,7 @@ require("config/tokenenum")
 local defs = Definitions
 
 function Scan(file)
-    local position = 0
+    local position = 0  -- 'position' and 'line' are for debug/logging purposes.
     local line = 1
     local reader
     local tokens = {}
