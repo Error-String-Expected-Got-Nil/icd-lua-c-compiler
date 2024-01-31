@@ -1,7 +1,7 @@
 -- Storing a whole string for every token would be... questionable, so here's a table that mimics an enum.
 -- String keys get their ordinal number, ordinals get the corresponding string.
 -- Not all of these will be implemented. Probably still missing a bunch. Will be added... later.
-Tokens = {
+TokensEnum = {
     -- Operators
     "logicEQ";
     "logicNE";
@@ -109,6 +109,6 @@ Tokens = {
 }
 
 -- Sets up the name -> ordinal part of the pseudo-enum.
-for index, name in ipairs(Tokens) do
-    Tokens[name] = index
+for index, name in ipairs(TokensEnum) do
+    TokensEnum[name] = index
 end

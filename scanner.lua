@@ -2,6 +2,7 @@ require("config/definitions")
 require("config/tokenenum")
 
 local defs = Definitions
+local charPat = defs.characterPatterns
 
 function Scan(file)
     local position = 0  -- 'position' and 'line' are for debug/logging purposes.
@@ -60,8 +61,18 @@ function Scan(file)
             -- Only supports decimal number literals. Too bad!
             -- Also doesn't support type postfixes. Too bad!
             if not char:match(defs.characters) and not ((char:match(defs.decimalPoint)) and buffer:sub(-1):match("%d")) then
-                -- Temporary
-                table.insert(tokens, buffer)
+                -- TODO: Check for keywords
+
+                if buffer:match("^" .. charPat.word .. "$") then
+                    table.insert(tokens, {TokensEnum.word, buffer})
+                elseif buffer:match("^" .. charPat.decimal .. defs.decimalPoint .. charPat.decimal .. "$") then
+                    table.insert(tokens, {TokensEnum.numberLiteral, "float", tonumber(buffer)})
+                    -- Maybe throw error. I don't want to deal with floats right now.
+                elseif buffer:match("^" .. charPat.decimal .. "$") then
+                    table.insert(tokens, {TokensEnum.numberLiteral, "integer", tonumber(buffer)})
+                else
+                    -- Throw error
+                end
 
                 unread(char)
                 return true
@@ -151,7 +162,7 @@ function Scan(file)
                         buffer, replace = buffer:gsub("^" .. defs.operators[operator], "")
 
                         if replace > 0 then
-                            table.insert(tokens, {Tokens[operator]})
+                            table.insert(tokens, {TokensEnum[operator]})
                             break
                         end
 
