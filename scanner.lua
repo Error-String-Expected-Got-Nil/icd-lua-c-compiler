@@ -57,8 +57,9 @@ function Scan(file)
         while true do
             local char = coroutine.yield()
 
-            -- Should permit period if previous character was a number, to allow for floats.
-            if not char:match(defs.characters) then
+            -- Only supports decimal number literals. Too bad!
+            -- Also doesn't support type postfixes. Too bad!
+            if not char:match(defs.characters) and not ((char:match(defs.decimalPoint)) and buffer:sub(-1):match("%d")) then
                 -- Temporary
                 table.insert(tokens, buffer)
 
