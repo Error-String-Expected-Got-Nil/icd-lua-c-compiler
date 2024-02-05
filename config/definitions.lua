@@ -21,7 +21,13 @@ Definitions = {
 
     stringBound = "\"";
     stringEscape = "\\";
-    -- TODO: List of string escape characters somewhere.
+    -- Not all escape sequences but like, the ones people actually use. Can add more later or something.
+    stringEscapeChars = {
+        ["'"] = "'";
+        ["\""] = "\"";
+        ["\\"] = "\\";
+        ["n"] = "\n";
+    };
     charBound = "'";
 
     -- The first of these you might actually want to change, if you want to use commas instead of periods for the decimal point in a float.

@@ -4,6 +4,11 @@ require("config/tokenenum")
 local defs = Definitions
 local charPat = defs.characterPatterns
 
+-- BIG TODO:
+-- Currently scans the whole file at once, not really what we want. Risks using up a bunch of resources for large files.
+-- Would be better to make it scan single statements at a time and compile at the same time?
+-- Need to figure it out.
+
 function Scan(file)
     local position = 0  -- 'position' and 'line' are for debug/logging purposes.
     local line = 1
@@ -120,6 +125,17 @@ function Scan(file)
             if buffer:match(defs.blockCommentEnd .. "$") then
                 return true
             end
+        end
+    end
+
+    local function readStringLiteral()
+        local buffer = ""
+        local escaped = false
+
+        while true do
+            local char = coroutine.yield()
+
+            
         end
     end
 
