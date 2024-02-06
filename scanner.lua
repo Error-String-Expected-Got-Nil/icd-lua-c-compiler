@@ -66,7 +66,14 @@ function Scan(file)
             -- Only supports decimal number literals. Too bad!
             -- Also doesn't support type postfixes. Too bad!
             if not char:match(defs.characters) and not ((char:match(defs.decimalPoint)) and buffer:sub(-1):match("%d")) then
-                -- TODO: Check for keywords
+                for _, keyword in ipairs(defs.keywords) do
+                    if buffer == defs.keywords[keyword] then
+                        table.insert(tokens, {TokensEnum.keyword})
+
+                        unread(char)
+                        return true
+                    end
+                end
 
                 if buffer:match("^" .. charPat.word .. "$") then
                     table.insert(tokens, {TokensEnum.word, buffer})
