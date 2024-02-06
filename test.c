@@ -1,5 +1,3 @@
-// Comment
-
 int main() {
     printf("Test");
     

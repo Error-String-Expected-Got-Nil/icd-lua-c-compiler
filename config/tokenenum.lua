@@ -45,8 +45,8 @@ TokensEnum = {
     "listSep";
     "statementSep";
 
-    "openParenthesis";
-    "closeParenthesis";
+    "openParen";
+    "closeParen";
     "openBracket";
     "closeBracket";
     "openCurl";

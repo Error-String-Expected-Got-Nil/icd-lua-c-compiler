@@ -55,7 +55,7 @@ Definitions = {
         "assign";
         "assignAdd";
         "assignSub";
-        "assingMul";
+        "assignMul";
         "assignDiv";
         "assignMod";
         "assignAND";
@@ -80,13 +80,13 @@ Definitions = {
         "mathModulo";
 
         "ternaryAsk";
-        "teraryAnswer";
+        "ternaryAnswer";
 
         "listSep";
         "statementSep";
 
-        "openParenthesis";
-        "closeParenthesis";
+        "openParen";
+        "closeParen";
         "openBracket";
         "closeBracket";
         "openCurl";
@@ -135,8 +135,8 @@ Definitions = {
         listSep = ",";
         statementSep = ";";
 
-        openParenthesis = "%(";
-        closeParenthesis = "%)";
+        openParen = "%(";
+        closeParen = "%)";
         openBracket = "%[";
         closeBracket = "%]";
         openCurl = "{";

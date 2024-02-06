@@ -68,7 +68,7 @@ function Scan(file)
             if not char:match(defs.characters) and not ((char:match(defs.decimalPoint)) and buffer:sub(-1):match("%d")) then
                 for _, keyword in ipairs(defs.keywords) do
                     if buffer == defs.keywords[keyword] then
-                        table.insert(tokens, {TokensEnum.keyword})
+                        table.insert(tokens, {TokensEnum[keyword]})
 
                         unread(char)
                         return true
@@ -78,7 +78,7 @@ function Scan(file)
                 if buffer:match("^" .. charPat.word .. "$") then
                     table.insert(tokens, {TokensEnum.word, buffer})
                 elseif buffer:match("^" .. charPat.decimal .. defs.decimalPoint .. charPat.decimal .. "$") then
-                    table.insert(tokens, {TokensEnum.numberLiteral, "float", tonumber(buffer)})
+                    table.insert(tokens, {TokensEnum.mumberLiteral, "float", tonumber(buffer)})
                     -- Maybe throw error. I don't want to deal with floats right now.
                 elseif buffer:match("^" .. charPat.decimal .. "$") then
                     table.insert(tokens, {TokensEnum.numberLiteral, "integer", tonumber(buffer)})
@@ -178,6 +178,8 @@ function Scan(file)
                     -- replacement, and the number of replacements made. So I'm using it to check for and clip the prefix at the same time.
                     buffer, replace = buffer:gsub("^" .. defs.stringBound, "")
                     if replace > 0 then
+
+                        unread(char)
                         unread(buffer)
 
                         local nextReader = coroutine.create(readStringLiteral)
@@ -189,6 +191,7 @@ function Scan(file)
 
                     buffer, replace = buffer:gsub("^" .. defs.lineCommentStart, "")
                     if replace > 0 then
+                        unread(char)
                         unread(buffer)
 
                         local nextReader = coroutine.create(readLineComment)
@@ -200,6 +203,7 @@ function Scan(file)
 
                     buffer, replace = buffer:gsub("^" .. defs.blockCommentStart, "")
                     if replace > 0 then
+                        unread(char)
                         unread(buffer)
 
                         local nextReader = coroutine.create(readBlockComment)
@@ -256,6 +260,8 @@ function Scan(file)
         char = nextChar()
 
         if not char then
+            -- Bit hacky, but this is the easiest fix to a minor bug.
+            coroutine.resume(reader, defs.newline)
             return tokens
         end
 
