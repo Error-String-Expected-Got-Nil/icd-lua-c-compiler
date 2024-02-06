@@ -1,8 +1,8 @@
-require("config/definitions")
 require("scanner")
+require("utils/tableutils")
 
 File = io.open("test.c")
 
 Test = Scan(File)
 
-print(table.concat(Test, " "))
+table.printDump(Test)
