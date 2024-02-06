@@ -128,6 +128,8 @@ function Scan(file)
         end
     end
 
+    -- Only supports single-character string bounds and escape sequences. Too bad!
+    -- This compiler is going to be very janky, but I suppose that should be expected for a first try.
     local function readStringLiteral()
         local buffer = ""
         local escaped = false
@@ -161,13 +163,23 @@ function Scan(file)
                 while #buffer > 0 do
                     local replace = 0
 
-                    -- TODO: Check for double quote marks to start string parsing
                     -- TODO: Check for single quote marks to start char parsing
 
                     -- Some repeated code... bad, but not terrible, and I don't think making a function for this is worth it.
                     -- str:gsub() is global substitution, replacing all instances of a pattern in the given string.
                     -- Here, I am matching to the start of the string and replacng with the empty string. gsub returns the string after
                     -- replacement, and the number of replacements made. So I'm using it to check for and clip the prefix at the same time.
+                    buffer, replace = buffer:gsub("^" .. defs.stringBound, "")
+                    if replace > 0 then
+                        unread(buffer)
+
+                        local nextReader = coroutine.create(readStringLiteral)
+                        coroutine.resume(nextReader)
+                        reader = nextReader
+
+                        return false
+                    end
+
                     buffer, replace = buffer:gsub("^" .. defs.lineCommentStart, "")
                     if replace > 0 then
                         unread(buffer)
@@ -175,6 +187,8 @@ function Scan(file)
                         local nextReader = coroutine.create(readLineComment)
                         coroutine.resume(nextReader)
                         reader = nextReader
+
+                        return false
                     end
 
                     buffer, replace = buffer:gsub("^" .. defs.blockCommentStart, "")
@@ -184,6 +198,8 @@ function Scan(file)
                         local nextReader = coroutine.create(readBlockComment)
                         coroutine.resume(nextReader)
                         reader = nextReader
+
+                        return false
                     end
 
                     for _, operator in ipairs(defs.operators) do
