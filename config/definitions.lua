@@ -242,8 +242,4 @@ Definitions = {
         typedef = "typedef";
         typeof = "typeof";
     }
-
-    -- This thing with the 'operators' and the 'keywords' tables is probably suboptimal but too bad! It works.
-
-    -- TODO: Special characters for string parsing
 }
