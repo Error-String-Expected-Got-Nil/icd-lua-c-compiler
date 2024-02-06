@@ -135,7 +135,19 @@ function Scan(file)
         while true do
             local char = coroutine.yield()
 
-            
+            if escaped then
+                buffer = buffer .. (defs.stringEscapeChars[char] or char)
+            else
+                if char:match(defs.stringEscape) then
+                    escaped = true
+                elseif char:match(defs.stringBound) then
+                    table.insert(tokens, {TokensEnum.stringLiteral, buffer})
+
+                    return true
+                else
+                    buffer = buffer .. char
+                end
+            end
         end
     end
 
