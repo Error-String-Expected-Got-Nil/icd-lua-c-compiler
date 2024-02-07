@@ -153,3 +153,14 @@ function table.printDump(tab, indent, ...)
 
     print("")
 end
+
+-- Removes all elements in a table from start to finish, then puts a replacement where start was.
+function table.collapse(tab, start, finish, replace)
+    for i = 1, finish - start + 1 do
+        table.remove(tab, start)
+    end
+
+    table.insert(tab, start, replace)
+
+    return tab
+end

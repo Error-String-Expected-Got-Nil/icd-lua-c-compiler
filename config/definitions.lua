@@ -241,5 +241,14 @@ Definitions = {
         sizeof = "sizeof";
         typedef = "typedef";
         typeof = "typeof";
-    }
+    };
+
+    -- Lower precedence is performed first.
+    opPrecedence = {
+        add = 4;
+        sub = 4;
+        mul = 3;
+        div = 3;
+        mod = 3;
+    };
 }
