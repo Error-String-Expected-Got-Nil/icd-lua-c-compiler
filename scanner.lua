@@ -68,7 +68,7 @@ function Scan(file)
             if not char:match(defs.characters) and not ((char:match(defs.decimalPoint)) and buffer:sub(-1):match("%d")) then
                 for _, keyword in ipairs(defs.keywords) do
                     if buffer == defs.keywords[keyword] then
-                        table.insert(tokens, {TokensEnum[keyword]})
+                        table.insert(tokens, {[0] = line; TokensEnum[keyword]})
 
                         unread(char)
                         return true
@@ -76,12 +76,12 @@ function Scan(file)
                 end
 
                 if buffer:match("^" .. charPat.word .. "$") then
-                    table.insert(tokens, {TokensEnum.word, buffer})
+                    table.insert(tokens, {[0] = line; TokensEnum.word, buffer})
                 elseif buffer:match("^" .. charPat.decimal .. defs.decimalPoint .. charPat.decimal .. "$") then
-                    table.insert(tokens, {TokensEnum.mumberLiteral, "float", tonumber(buffer)})
+                    table.insert(tokens, {[0] = line; TokensEnum.mumberLiteral, "float", tonumber(buffer)})
                     -- Maybe throw error. I don't want to deal with floats right now.
                 elseif buffer:match("^" .. charPat.decimal .. "$") then
-                    table.insert(tokens, {TokensEnum.numberLiteral, "integer", tonumber(buffer)})
+                    table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "integer", tonumber(buffer)})
                 else
                     -- Throw error
                 end
@@ -150,7 +150,7 @@ function Scan(file)
                 if char:match(defs.stringEscape) then
                     escaped = true
                 elseif char:match(defs.stringBound) then
-                    table.insert(tokens, {TokensEnum.stringLiteral, buffer})
+                    table.insert(tokens, {[0] = line; TokensEnum.stringLiteral, buffer})
 
                     return true
                 else
@@ -217,7 +217,7 @@ function Scan(file)
                         buffer, replace = buffer:gsub("^" .. defs.operators[operator], "")
 
                         if replace > 0 then
-                            table.insert(tokens, {TokensEnum[operator]})
+                            table.insert(tokens, {[0] = line; TokensEnum[operator]})
                             break
                         end
 
