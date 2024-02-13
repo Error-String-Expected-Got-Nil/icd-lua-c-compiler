@@ -245,10 +245,10 @@ Definitions = {
 
     -- Lower precedence is performed first.
     opPrecedence = {
-        add = 4;
-        sub = 4;
-        mul = 3;
-        div = 3;
-        mod = 3;
+        mathAdd = 12;
+        mathSub = 12;
+        mathMul = 13;
+        mathDiv = 13;
+        mathMod = 13;
     };
 }
