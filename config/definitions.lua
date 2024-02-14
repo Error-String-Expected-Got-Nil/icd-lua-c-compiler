@@ -74,10 +74,10 @@ Definitions = {
         "mathIncrement";
         "mathDecrement";
         "mathAdd";
-        "mathSubtract";
-        "mathMultiply";
-        "mathDivide";
-        "mathModulo";
+        "mathSub";
+        "mathMul";
+        "mathDiv";
+        "mathMod";
 
         "ternaryAsk";
         "ternaryAnswer";
@@ -124,10 +124,10 @@ Definitions = {
         mathIncrement = "%+%+";
         mathDecrement = "%-%-";
         mathAdd = "%+";
-        mathSubtract = "%-";
-        mathMultiply = "%*";     -- Also pointer sign
-        mathDivide = "/";
-        mathModulo = "%%";
+        mathSub = "%-";
+        mathMul = "%*";     -- Also pointer sign
+        mathDiv = "/";
+        mathMod = "%%";
 
         ternaryAsk = "%?";
         ternaryAnswer = ":";

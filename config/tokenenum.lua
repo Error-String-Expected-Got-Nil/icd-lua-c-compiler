@@ -33,10 +33,10 @@ TokensEnum = {
     "mathIncrement";
     "mathDecrement";
     "mathAdd";
-    "mathSubtract";
-    "mathMultiply";
-    "mathDivide";
-    "mathModulo";
+    "mathSub";
+    "mathMul";
+    "mathDiv";
+    "mathMod";
 
     -- Control symbols
     "ternaryAsk";

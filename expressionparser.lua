@@ -6,8 +6,9 @@ local function validateTokens(tokens)
     local allowed = {te.mathAdd, te.mathSub, te.mathMul, te.mathDiv, te.mathMod, te.numberLiteral}
 
     for _, token in ipairs(tokens) do
-        -- TODO: this
-        -- TEST EXPRESSION PARSER AFTER
+        if not table.contains(allowed, token[1]) then
+            error("unrecognized token while parsing expression on line " .. token[0])
+        end
     end
 end
 
