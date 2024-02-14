@@ -38,34 +38,6 @@ local function parseValue(token)
     error("failed to parse token on line " .. token[0] .. ", value expected, got otherwise")
 end
 
--- TODO: Unsurprisingly, doesn't work correctly. Need to try this again.
-local function parseBinaryExpression(tokens, start, finish, lastPrecedence)
-    if start > finish then
-        error("failed to parse expression, value expected, got nil")
-    end
-
-    local arg1 = parseValue(tokens[start])
-
-    if finish == start then
-        return arg1
-    end
-
-    local operator = tokens[start + 1]
-    local nextPrecedence = Definitions.opPrecedence[TokensEnum[operator[1]]]
-    if nextPrecedence > lastPrecedence then
-        local expression = {"op", TokensEnum[operator[1]], arg1, parseBinaryExpression(tokens, start + 2, finish, nextPrecedence)}
-        table.collapse(tokens, start, start + 2, expression)
-
-        if #tokens == 1 then
-            return tokens
-        end
-
-        return parseBinaryExpression(tokens, start, finish - 2, nextPrecedence)
-    else
-        return arg1
-    end
-end
-
 -- Note that this mutates the tokens table passed in, make sure to duplicate it and pass in duplicate.
 function ParseExpression(tokens, start, finish)
     start = start or 1
@@ -77,6 +49,6 @@ function ParseExpression(tokens, start, finish)
     -- Would also catch any non-binary operations here (pointer reference, unary minus, indexing, calling)
 
     -- By this point (if this were finished), any non-binary expressions should be grouped up and treated as any other value token
-    -- So we can just parse everything recursively as a binary expression
-    return parseBinaryExpression(tokens, start, finish, 0)
+    -- So we can just parse everything as a binary expression
+    
 end
