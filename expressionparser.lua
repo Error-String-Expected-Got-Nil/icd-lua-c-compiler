@@ -62,5 +62,5 @@ function ParseExpression(tokens)
     end
 
     -- In case the expression was a single number or something.
-    return {parseValue(tokens[1])}
+    return parseValue(tokens[1])
 end
