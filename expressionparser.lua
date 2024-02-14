@@ -16,13 +16,7 @@ local function isOp(token)
     local te = TokensEnum
     local operators = {te.mathAdd, te.mathSub, te.mathMul, te.mathDiv, te.mathMod}
 
-    for _, op in ipairs(operators) do
-        if token[1] == op then
-            return true
-        end
-    end
-
-    return false
+    return table.contains(operators, token[1])
 end
 
 local function parseValue(token)
@@ -39,16 +33,34 @@ local function parseValue(token)
 end
 
 -- Note that this mutates the tokens table passed in, make sure to duplicate it and pass in duplicate.
-function ParseExpression(tokens, start, finish)
-    start = start or 1
-    finish = finish or #tokens
-
+function ParseExpression(tokens)
     validateTokens(tokens)
 
     -- TODO: Group stuff in parentheses into sub-expressions
     -- Would also catch any non-binary operations here (pointer reference, unary minus, indexing, calling)
 
-    -- By this point (if this were finished), any non-binary expressions should be grouped up and treated as any other value token
-    -- So we can just parse everything as a binary expression
-    
+    while #tokens > 1 do
+        local highPrec, highPrecIndex = 0, 0
+
+        for index, token in ipairs(tokens) do
+            if isOp(token) then
+                local opPrec = Definitions.opPrecedence[TokensEnum[token[1]]]
+                if opPrec > highPrec then
+                    highPrec = opPrec
+                    highPrecIndex = index
+                end
+            end
+        end
+
+        if highPrec == 0 then
+            -- More than one token remaining but there are no operators, expression is invalid.
+            error("expression parsing failed, operator expected")
+        end
+
+        table.collapse(tokens, highPrecIndex - 1, highPrecIndex + 1, {"op", TokensEnum[tokens[highPrecIndex][1]],
+            parseValue(tokens[highPrecIndex - 1]), parseValue(tokens[highPrecIndex + 1])})
+    end
+
+    -- In case the expression was a single number or something.
+    return {parseValue(tokens[1])}
 end
