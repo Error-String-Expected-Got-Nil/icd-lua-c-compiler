@@ -116,7 +116,7 @@ Definitions = {
 
         bitwiseAND = "&";       -- Also reference sign
         bitwiseOR = "|";
-        bitwiseXOR = "^";
+        bitwiseXOR = "%^";
         bitwiseNOT = "~";
         bitwiseLSH = "<<";
         bitwiseRSH = ">>";
