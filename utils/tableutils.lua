@@ -164,3 +164,13 @@ function table.collapse(tab, start, finish, replace)
 
     return tab
 end
+
+function table.contains(tab, target)
+    for _, v in ipairs(tab) do
+        if v == target then
+            return true
+        end
+    end
+
+    return false
+end
