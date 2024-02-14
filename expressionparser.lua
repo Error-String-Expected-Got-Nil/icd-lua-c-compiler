@@ -44,7 +44,7 @@ local function parseBinaryExpression(tokens, start, finish, lastPrecedence)
 
     local arg1 = parseValue(tokens[start])
 
-    if finish - start == 0 then
+    if finish == start then
         return arg1
     end
 
