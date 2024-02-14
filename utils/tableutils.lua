@@ -174,3 +174,13 @@ function table.contains(tab, target)
 
     return false
 end
+
+function table.copySlice(tab, start, finish)
+    local newtab = {}
+
+    for i = start, finish do
+        table.insert(newtab, tab[i])
+    end
+
+    return newtab
+end
