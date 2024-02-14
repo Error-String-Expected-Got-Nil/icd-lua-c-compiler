@@ -38,6 +38,7 @@ local function parseValue(token)
     error("failed to parse token on line " .. token[0] .. ", value expected, got otherwise")
 end
 
+-- TODO: Unsurprisingly, doesn't work correctly. Need to try this again.
 local function parseBinaryExpression(tokens, start, finish, lastPrecedence)
     if start > finish then
         error("failed to parse expression, value expected, got nil")
