@@ -1,2 +1,5 @@
 
 .DS_Store
+.idea/icd-lua-c-compiler.iml
+.idea/modules.xml
+.idea/vcs.xml
