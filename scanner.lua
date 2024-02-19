@@ -268,7 +268,9 @@ function Scan(file)
         local success, message = coroutine.resume(reader, char)
 
         if not success then
-            -- Coroutine had an error, handle here
+            print("coroutine error: ")
+            print(message)
+            error("character reader fault")
         end
 
         if message then
