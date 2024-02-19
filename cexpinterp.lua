@@ -9,7 +9,7 @@ Test = io.open("exptest.txt")
 Tokens = Scan(Test)
 
 for _, v in ipairs(Tokens) do
-    print(v[1], v[2], v[3], TokensEnum[v[1]])
+    print(v[1], v[2] or " ", v[3] or " ", TokensEnum[v[1]])
 end
 
 Expression = ParseExpression(Tokens)
