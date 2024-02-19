@@ -152,6 +152,8 @@ Definitions = {
 
     -- TODO: Optimize by ordering array part by keyword frequency in code.
     keywords = {
+        "DEBUGPRINT";
+
         "char";
         "short";
         "int";
@@ -196,6 +198,8 @@ Definitions = {
         "sizeof";
         "typedef";
         "typeof";
+
+        DEBUGPRINT = "DEBUGPRINT";
 
         char = "char";
         short = "short";
