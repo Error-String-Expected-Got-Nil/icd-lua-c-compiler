@@ -14,4 +14,6 @@ end
 
 Expression = ParseExpression(Tokens)
 
+print("")
+
 table.printDump(Expression)
