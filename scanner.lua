@@ -83,7 +83,7 @@ function Scan(file)
                 elseif buffer:match("^" .. charPat.decimal .. "$") then
                     table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "int", tonumber(buffer)})
                 else
-                    -- Throw error
+                    error("unrecognized character sequence while parsing")
                 end
 
                 unread(char)
@@ -244,7 +244,7 @@ function Scan(file)
         elseif char:match(defs.whitespace) then
             nextReader = readWhitespace
         else
-            -- Unrecognized character, should cause error
+            error("unrecognized character encountered")
         end
 
         nextReader = coroutine.create(nextReader)
