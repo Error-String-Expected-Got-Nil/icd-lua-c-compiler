@@ -81,7 +81,7 @@ function Scan(file)
                     table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "float", tonumber(buffer)})
                     -- Maybe throw error. I don't want to deal with floats right now.
                 elseif buffer:match("^" .. charPat.decimal .. "$") then
-                    table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "integer", tonumber(buffer)})
+                    table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "int", tonumber(buffer)})
                 else
                     -- Throw error
                 end
