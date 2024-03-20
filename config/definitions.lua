@@ -94,6 +94,8 @@ Definitions = {
         "openArrow";
         "closeArrow";
 
+        "ellipses";
+
         logicEQ = "==";
         logicNE = "!=";
         logicGE = ">=";
@@ -143,6 +145,8 @@ Definitions = {
         closeCurl = "}";
         openArrow = "<";        -- Also less than sign
         closeArrow = ">";       -- Also greater than sign
+
+        ellipses = "...";
     };
     -- Note: The reason I don't just have the keyed part and just run through it with pairs() instead of doing
     -- what I do here (having an array part and using ipairs()) is because, technically speaking, pairs()
