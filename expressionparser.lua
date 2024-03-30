@@ -1,9 +1,10 @@
 require("config/tokenenum")
+require("utils/tableutils")
 
 -- Temp function to error if any unimplemented tokens are seen
 local function validateTokens(tokens)
     local te = TokensEnum
-    local allowed = {te.mathAdd, te.mathSub, te.mathMul, te.mathDiv, te.mathMod, te.numberLiteral}
+    local allowed = {te.mathAdd, te.mathSub, te.mathMul, te.mathDiv, te.mathMod, te.numberLiteral, te.openParen, te.closeParen}
 
     for _, token in ipairs(tokens) do
         if not table.contains(allowed, token[1]) then
@@ -38,6 +39,48 @@ function ParseExpression(tokens)
 
     -- TODO: Group stuff in parentheses into sub-expressions
     -- Would also catch any non-binary operations here (pointer reference, unary minus, indexing, calling)
+
+    local finishedGrouping = false
+    repeat
+        local balance = 0
+        local openPos = 0
+        for index, token in ipairs(tokens) do
+            if token[1] == TokensEnum.openParen then
+                if openPos == 0 then
+                    openPos = index
+                end
+
+                balance = balance + 1
+            elseif token[1] == TokensEnum.closeParen then
+                if openPos == 0 then
+                    error("expression attempts to close unopened parentheses at token position " .. index)
+                else
+                    balance = balance - 1
+                end
+
+                if balance == 0 then
+                    if index == openPos + 1 then
+                        error("empty group in expression at token position " .. index)
+                    end
+
+                    table.collapse(tokens, openPos, index, ParseExpression(table.copySlice(tokens, openPos + 1, index - 1)))
+                    break
+                end
+            end
+        end
+
+        if balance ~= 0 then
+            error("expression has unclosed parenthesis at token position " .. openPos)
+        end
+
+        finishedGrouping = true
+        for index, token in ipairs(tokens) do
+            if token[1] == TokensEnum.openParen then
+                finishedGrouping = false
+                break
+            end
+        end
+    until finishedGrouping == true
 
     while #tokens > 1 do
         local highPrec, highPrecIndex = 0, 0
