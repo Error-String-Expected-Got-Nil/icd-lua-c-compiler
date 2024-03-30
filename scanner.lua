@@ -79,7 +79,7 @@ function Scan(file)
                     table.insert(tokens, {[0] = line; TokensEnum.word, buffer})
                 elseif buffer:match("^" .. charPat.decimal .. defs.decimalPoint .. charPat.decimal .. "$") then
                     table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "float", tonumber(buffer)})
-                    -- Maybe throw error. I don't want to deal with floats right now.
+                    error("I'm not dealing with floating point.")
                 elseif buffer:match("^" .. charPat.decimal .. "$") then
                     table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "int", tonumber(buffer)})
                 else
