@@ -106,6 +106,7 @@ TokensEnum = {
     "sizeof";
     "typedef";
     "typeof";
+    "ellipses";
 }
 
 -- Sets up the name -> ordinal part of the pseudo-enum.
