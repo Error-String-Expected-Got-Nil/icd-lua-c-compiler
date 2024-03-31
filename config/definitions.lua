@@ -3,7 +3,7 @@ Definitions = {
     -- Assume all strings (that don't represent table keys) here are actually Lua patterns!! Escape special characters with % as necessary!
 
     -- symbols: Written out manually, all symbol characters.
-    symbols = "[`%-=%[%]\\;',./!@#$%%^&*()+{}|:\"<>?]";
+    symbols = "[`~%-=%[%]\\;',./!@#$%%^&*()+{}|:\"<>?]";
 
     -- characters: All letters a-z, uppercase or lowercase, plus numbers 0-9, plus the underscore.
     characters = "[%w_]";
@@ -127,7 +127,7 @@ Definitions = {
         mathDecrement = "%-%-";
         mathAdd = "%+";
         mathSub = "%-";
-        mathMul = "%*";     -- Also pointer sign
+        mathMul = "%*";     -- Also dereference sign
         mathDiv = "/";
         mathMod = "%%";
 
