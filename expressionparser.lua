@@ -200,6 +200,8 @@ function ParseExpression(tokens)
             error("expression parsing failed, operator expected")
         end
 
+        -- TODO: If operator is combined assign/operation operator, expand it out to make parsing easier later?
+
         table.collapse(tokens, highPrecIndex - 1, highPrecIndex + 1, {"op", TokensEnum[tokens[highPrecIndex][1]],
             parseValue(tokens[highPrecIndex - 1]), parseValue(tokens[highPrecIndex + 1])})
     end
