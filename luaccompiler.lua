@@ -3,8 +3,13 @@ require("utils/tableutils")
 
 File = io.open("test.c")
 
-Test = Scan(File)
+Test = coroutine.create(Scan)
+coroutine.resume(Test, File)
 
-for i, v in ipairs(Test) do
-    print(v[1], v[2] or " ", v[3] or " ", TokensEnum[v[1]])
+while true do
+    local success, token = coroutine.resume(Test)
+
+    if not token then break end
+
+    print(token[1], token[2] or " ", token[3] or " ", TokensEnum[token[1]])
 end

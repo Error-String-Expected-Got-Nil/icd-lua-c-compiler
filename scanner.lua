@@ -4,21 +4,20 @@ require("config/tokenenum")
 local defs = Definitions
 local charPat = defs.characterPatterns
 
--- BIG TODO:
--- Currently scans the whole file at once, not really what we want. Risks using up a bunch of resources for large files.
--- Would be better to make it scan single statements at a time and compile at the same time?
--- Need to figure it out.
-
 function Scan(file)
     local position = 0  -- 'position' and 'line' are for debug/logging purposes.
     local line = 1
     local reader
-    local tokens = {}
-    -- Each token is an array in this 'tokens' array.
+    -- Each token is an array.
     -- The first entry in each array is always the token's enum ID.
     -- Additional entries are any extra data the token needs (like a literal's value).
 
     local overreadBuffer = {}
+
+    local tokensBuffer = {}
+    local function emitToken(token)
+        table.insert(tokensBuffer, token)
+    end
 
     -- If characters need to be "put back", this does it and updates state accordingly.
     local function unread(str)
@@ -68,7 +67,7 @@ function Scan(file)
             if not char:match(defs.characters) and not ((char:match(defs.decimalPoint)) and buffer:sub(-1):match("%d")) then
                 for _, keyword in ipairs(defs.keywords) do
                     if buffer == defs.keywords[keyword] then
-                        table.insert(tokens, {[0] = line; TokensEnum[keyword]})
+                        emitToken({[0] = line; TokensEnum[keyword]})
 
                         unread(char)
                         return true
@@ -76,12 +75,12 @@ function Scan(file)
                 end
 
                 if buffer:match("^" .. charPat.word .. "$") then
-                    table.insert(tokens, {[0] = line; TokensEnum.word, buffer})
+                    emitToken({[0] = line; TokensEnum.word, buffer})
                 elseif buffer:match("^" .. charPat.decimal .. defs.decimalPoint .. charPat.decimal .. "$") then
-                    table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "float", tonumber(buffer)})
+                    emitToken({[0] = line; TokensEnum.numberLiteral, "float", tonumber(buffer)})
                     error("I'm not dealing with floating point.")
                 elseif buffer:match("^" .. charPat.decimal .. "$") then
-                    table.insert(tokens, {[0] = line; TokensEnum.numberLiteral, "int", tonumber(buffer)})
+                    emitToken({[0] = line; TokensEnum.numberLiteral, "int", tonumber(buffer)})
                 else
                     error("unrecognized character sequence while parsing")
                 end
@@ -150,7 +149,7 @@ function Scan(file)
                 if char:match(defs.stringEscape) then
                     escaped = true
                 elseif char:match(defs.stringBound) then
-                    table.insert(tokens, {[0] = line; TokensEnum.stringLiteral, buffer})
+                    emitToken({[0] = line; TokensEnum.stringLiteral, buffer})
 
                     return true
                 else
@@ -217,7 +216,7 @@ function Scan(file)
                         buffer, replace = buffer:gsub("^" .. defs.operators[operator], "")
 
                         if replace > 0 then
-                            table.insert(tokens, {[0] = line; TokensEnum[operator]})
+                            emitToken({[0] = line; TokensEnum[operator]})
                             break
                         end
 
@@ -256,15 +255,27 @@ function Scan(file)
     reader = getNextReader(char)
     unread(char)
 
+    -- Pause before starting read loop when first initialized
+    coroutine.yield()
     while true do
         char = nextChar()
 
         if not char then
             -- Bit hacky, but this is the easiest fix to a minor bug.
             coroutine.resume(reader, defs.newline)
-            return tokens
+
+            if #tokensBuffer > 0 then
+                for i, v in ipairs(tokensBuffer) do
+                    coroutine.yield(v)
+                end
+                tokensBuffer = {}
+            end
+
+            -- Return false when finished
+            return false
         end
 
+        -- First return of coroutine.resume is false if coroutine had an error, second result is either error message, or first return of yield
         local success, message = coroutine.resume(reader, char)
 
         if not success then
@@ -275,6 +286,13 @@ function Scan(file)
 
         if message then
             reader = getNextReader(char)
+        end
+
+        if #tokensBuffer > 0 then
+            for i, v in ipairs(tokensBuffer) do
+                coroutine.yield(v)
+            end
+            tokensBuffer = {}
         end
     end
 end

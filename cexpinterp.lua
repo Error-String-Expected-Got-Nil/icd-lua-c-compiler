@@ -4,12 +4,21 @@ require("scanner")
 require("expressionparser")
 require("utils/tableutils")
 
-Test = io.open("exptest.txt")
+File = io.open("exptest.txt")
 
-Tokens = Scan(Test)
+Test = coroutine.create(Scan)
+coroutine.resume(Test, File)
 
-for _, v in ipairs(Tokens) do
-    print(v[1], v[2] or " ", v[3] or " ", TokensEnum[v[1]])
+Tokens = {}
+
+while true do
+    local success, token = coroutine.resume(Test)
+
+    if not token then break end
+
+    print(token[1], token[2] or " ", token[3] or " ", TokensEnum[token[1]])
+
+    table.insert(Tokens, token)
 end
 
 Expression = ParseExpression(Tokens)
